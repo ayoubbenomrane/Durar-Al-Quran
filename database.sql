@@ -59,13 +59,12 @@ CREATE TABLE assignment (
 );
 
 -- Payment Table
--- CREATE TABLE payment (
---     id SERIAL PRIMARY KEY,
---     enrollment_id INTEGER NOT NULL,
---     student_id INTEGER NOT NULL,
---     amount DECIMAL NOT NULL,
---     payment_date DATE NOT NULL,
---     status VARCHAR(50),
---     FOREIGN KEY (enrollment_id) REFERENCES enrollment(student_id, class_id),
---     FOREIGN KEY (student_id) REFERENCES student(id)
--- );
+CREATE TABLE payment (
+    id SERIAL PRIMARY KEY,
+    student_id INTEGER NOT NULL,
+    class_id INTEGER NOT NULL,
+    amount DECIMAL NOT NULL,
+    payment_date DATE NOT NULL,
+    status VARCHAR(50),
+    FOREIGN KEY (student_id, class_id) REFERENCES enrollment(student_id, class_id)
+);
