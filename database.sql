@@ -1,5 +1,6 @@
 -- Define Enum Types
-CREATE TYPE specialization AS ENUM ('Tahfidh', 'Ahkam');
+
+
 CREATE TYPE day AS ENUM ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
 
 -- Teacher Table
@@ -7,7 +8,16 @@ CREATE TABLE teacher (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    specialization specialization[]  -- Array allows multiple specializations per teacher
+    
+);
+
+create TABLE specialization(
+    id SERIAL PRIMARY KEY,
+    specialization VARCHAR(255),
+    teacher_id INTEGER,
+    FOREIGN KEY (teacher_id) REFERENCES teacher(id)
+
+ 
 );
 
 -- Class Table
