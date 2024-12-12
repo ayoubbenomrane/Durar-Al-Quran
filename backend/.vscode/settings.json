@@ -1,0 +1,12 @@
+{
+    "terminal.integrated.cwd": "C:/Users/ayoub/OneDrive/Bureau/ayoub/autoF/Durar Al Quran"
+    
+
+}
+"terminal.integrated.profiles.windows": {
+    "FastAPIEnv": {
+        "path": "/bin/bash",
+        "args": ["-c", "source venv/bin/activate && exec bash"]
+    }
+},
+"terminal.integrated.defaultProfile.windows": "FastAPIEnv"
