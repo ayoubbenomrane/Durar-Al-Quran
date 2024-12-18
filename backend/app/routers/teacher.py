@@ -10,7 +10,7 @@ router=APIRouter(
 )
 
 
-@router.post("/", response_model=teacher.TeacherOut)
+@router.post("", response_model=teacher.TeacherOut)
 def add_teacher(teacher: teacher.TeacherCreate, db: Session = Depends(get_db)):
     db_teacher = models.Teacher(**teacher.model_dump())
     db.add(db_teacher)
@@ -20,7 +20,7 @@ def add_teacher(teacher: teacher.TeacherCreate, db: Session = Depends(get_db)):
     return db_teacher
 
 # see existing teachers 
-@router.get("/",response_model=list[teacher.TeacherOut])
+@router.get("",response_model=list[teacher.TeacherOut])
 def get_teachers(db:Session=Depends(get_db)):
     res=db.query(models.Teacher).all()
     return res

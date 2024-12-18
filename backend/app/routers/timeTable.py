@@ -7,7 +7,7 @@ from ..schemas import timeTable
 router=APIRouter()
 
 
-@router.post("/", response_model=timeTable.TimeTable)
+@router.post("", response_model=timeTable.TimeTable)
 def create_time_table(time_table_data: timeTable.TimeTableCreate, db: Session = Depends(get_db)):
 
     new_time_table = models.TimeTable(**time_table_data.model_dump())

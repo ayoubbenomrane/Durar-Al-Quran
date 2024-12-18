@@ -10,7 +10,7 @@ router = APIRouter(
 )
 
 # CREATE
-@router.post("/", response_model=course.CourseCreate)
+@router.post("", response_model=course.CourseCreate)
 def create_course(course: course.CourseCreate, db: Session = Depends(get_db)):
     new_course = models.Course(**course.model_dump())
     db.add(new_course)
@@ -23,7 +23,7 @@ def create_course(course: course.CourseCreate, db: Session = Depends(get_db)):
 
 
 # READ ALL
-@router.get("/", response_model=list[course.Course])
+@router.get("", response_model=list[course.Course])
 def get_courses(db: Session = Depends(get_db)):
     courses = db.query(models.Course).all()
     return courses

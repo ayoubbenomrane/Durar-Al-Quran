@@ -8,7 +8,7 @@ from datetime import datetime
 router = APIRouter()
 
 # CREATE a student
-@router.post("/", response_model=student.Student)
+@router.post("", response_model=student.Student)
 def create_student(student: student.StudentCreate, db: Session = Depends(get_db)):
     hashed_password = utils.hash(student.password)
     student_data = student.model_dump()
@@ -20,7 +20,7 @@ def create_student(student: student.StudentCreate, db: Session = Depends(get_db)
     return new_student
 
 # GET all students
-@router.get("/", response_model=list[student.Student])
+@router.get("", response_model=list[student.Student])
 def get_students(db: Session = Depends(get_db)):
     students = db.query(models.Student).all()
     return students
