@@ -11,9 +11,15 @@
   <body>
     <div class="form">
       <h2>Login Here</h2>
-      <form action="index.html">
-        <input type="email" placeholder="Enter Email" required />
-        <input type="password" placeholder="Enter Password" required />
+      <!-- Form submission updated to trigger JavaScript -->
+      <form id="login-form">
+        <input type="email" id="email" placeholder="Enter Email" required />
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter Password"
+          required
+        />
         <button type="submit" class="btnn">Login</button>
       </form>
       <div class="link">
@@ -31,5 +37,48 @@
       </div>
     </div>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <script>
+      // JavaScript for handling login
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault(); // Prevent form from reloading the page
+
+          // Collect user input
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          // Create a FormData object
+          const formData = new FormData();
+          formData.append("username", email); // Add username (email)
+          formData.append("password", password); // Add password
+
+          // Mock API endpoint (replace with your actual endpoint)
+          const apiUrl = "https://afe9-196-203-181-122.ngrok-free.app/login";
+
+          try {
+            // Make a POST request with the collected data
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              body: formData, // Send formData instead of JSON
+            });
+
+            if (!response.ok) {
+              throw new Error(`Error: ${response.statusText}`);
+            }
+
+            // Parse JSON response
+            const data = await response.json();
+            console.log("Response Data:", data);
+
+            // If login is successful, navigate to index.html
+            alert("Login successful! Redirecting to the homepage...");
+            window.location.href = "index.html"; // Redirect to index.html
+          } catch (error) {
+            console.error("Error during login:", error);
+            alert("Login failed. Please check your credentials and try again.");
+          }
+        });
+    </script>
   </body>
 </html>

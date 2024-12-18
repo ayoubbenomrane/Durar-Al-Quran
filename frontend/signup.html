@@ -11,12 +11,28 @@
   <body>
     <div class="form">
       <h2>Sign Up Here</h2>
-      <form>
-        <input type="text" placeholder="Enter Full Name" required />
-        <input type="email" placeholder="Enter Email" required />
-        <input type="password" placeholder="Enter Password" required />
-        <input type="password" placeholder="Confirm Password" required />
-        <button class="btnn"><a href="login.html">Login</a></button>
+      <!-- Form submission updated to use JavaScript -->
+      <form id="signup-form">
+        <input
+          type="text"
+          id="full-name"
+          placeholder="Enter Full Name"
+          required
+        />
+        <input type="email" id="email" placeholder="Enter Email" required />
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter Password"
+          required
+        />
+        <input
+          type="password"
+          id="confirm-password"
+          placeholder="Confirm Password"
+          required
+        />
+        <button type="submit" class="btnn">Sign Up</button>
       </form>
       <div class="link">
         Already have an account? <a href="login.html">Log in here</a>
@@ -33,5 +49,66 @@
       </div>
     </div>
     <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons.js"></script>
+    <script>
+      // JavaScript for handling signup
+      document
+        .getElementById("signup-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault(); // Prevent form from reloading the page
+
+          // Collect user input
+          const fullName = document.getElementById("full-name").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirm-password").value;
+
+          // Check if passwords match
+          if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+          }
+
+          // Split full name into first and last name
+          const [firstName, ...lastNameParts] = fullName.split(" ");
+          const lastName = lastNameParts.join(" ") || "Unknown"; // Handle case with single name
+
+          // Mock API endpoint (replace with your actual endpoint)
+          const apiUrl = "https://afe9-196-203-181-122.ngrok-free.app/student";
+
+          try {
+            // Make a POST request with the collected data
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                first_name: firstName,
+                last_name: lastName,
+                email: email,
+                password: password,
+              }),
+            });
+
+            if (!response.ok) {
+              throw new Error(`Error: ${response.statusText}`);
+            }
+
+            // Parse JSON response
+            const data = await response.json();
+            console.log("Response Data:", data);
+
+            // Display success message or handle the response
+            alert("Signup successful! You can now log in.");
+
+            // Redirect to login page (optional)
+            window.location.href = "login.html";
+          } catch (error) {
+            console.error("Error during signup:", error);
+            alert("Signup failed. Please try again.");
+          }
+        });
+    </script>
   </body>
 </html>
